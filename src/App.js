@@ -1,18 +1,21 @@
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/Navbar';
+import Login from './components/Login';
+import NewLogin from './components/NewLogin';
 import TextBox from './components/TextBox';
+import Navbar from './components/Navbar';
+import PhotoSlider from './components/PhotoSlider';
+
 
 
 function App() {
   return (
-    <>
-      <Navbar title="tamim" />
-      <div className="container">
-        <TextBox heading="Type Here" />
-        <button className="btnoo">Convert to Uppercase</button>
-      </div>
-
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<NewLogin />} />
+        <Route path="/home" element={<Navbar />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
