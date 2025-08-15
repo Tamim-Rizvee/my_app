@@ -4,8 +4,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 
 const images = [
+    '/test.png',
     '/messi.jpg',
-    '/ronaldo.jpg',
     '/maradona.jpg',
 ];
 
@@ -36,7 +36,7 @@ function NewLogin() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-        }, 3000);
+        }, 6000);
 
         return () => clearInterval(interval);
     }, []);
@@ -184,7 +184,7 @@ function NewLogin() {
                                         left: 0,
                                         width: '100%',
                                         height: '100%',
-                                        objectFit: 'cover',
+                                        objectFit: 'contain',
                                         transition: 'opacity 1s ease-in-out',
                                         opacity: idx === currentIndex ? 1 : 0,
                                         zIndex: idx === currentIndex ? 1 : 0,
