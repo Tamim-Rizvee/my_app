@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<ScrollPage />} />
         <Route path="/home" element={<Navbar />} />
       </Routes>
     </BrowserRouter>
