@@ -14,13 +14,22 @@ export default function SignUp({ open, onClose }) {
     console.log('SignUp component rendered with open:', open);
 
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        name: '',
+        teamName: '',
         email: '',
-        role: '',
         password: '',
         confirmPassword: ''
     });
+
+    const clearFormData = () => {
+        setFormData({
+            name: '',
+            teamName: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        });
+    };
 
     const handleInputChange = (e) => {
         setFormData({
@@ -30,13 +39,30 @@ export default function SignUp({ open, onClose }) {
     };
 
     const handleSubmit = () => {
+        // Validate passwords match before submitting
+        if (formData.password !== formData.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        if (!formData.name || !formData.email || !formData.password) {
+            alert("Please fill in all required fields");
+            return;
+        }
+
         // Add your sign-up logic here
         console.log('Sign up data:', formData);
+        clearFormData(); // Clear form after successful submission
+        onClose();
+    };
+
+    const handleClose = () => {
+        clearFormData(); // Clear form when closing
         onClose();
     };
 
     return (
-        <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth
+        <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth
 
             PaperProps={{
                 sx: {
@@ -61,7 +87,7 @@ export default function SignUp({ open, onClose }) {
                 Sign Up
                 <IconButton
                     aria-label="close"
-                    onClick={onClose}
+                    onClick={handleClose}
                     sx={{
                         position: "absolute",
                         right: 8,
@@ -95,23 +121,23 @@ export default function SignUp({ open, onClose }) {
                 }}
             >
                 <TextField
-                    label="First Name"
-                    name="firstName"
+                    label="Name"
+                    name="name"
                     type="text"
                     fullWidth
                     margin="normal"
                     variant="outlined"
-                    value={formData.firstName}
+                    value={formData.name}
                     onChange={handleInputChange}
                 />
                 <TextField
-                    label="Last Name"
-                    name="lastName"
+                    label="Team Name"
+                    name="teamName"
                     type="text"
                     fullWidth
                     margin="normal"
                     variant="outlined"
-                    value={formData.lastName}
+                    value={formData.teamName}
                     onChange={handleInputChange}
                 />
                 <TextField
@@ -122,16 +148,6 @@ export default function SignUp({ open, onClose }) {
                     margin="normal"
                     variant="outlined"
                     value={formData.email}
-                    onChange={handleInputChange}
-                />
-                <TextField
-                    label="Role"
-                    name="Role"
-                    type="text"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    value={formData.role}
                     onChange={handleInputChange}
                 />
                 <TextField
@@ -158,7 +174,7 @@ export default function SignUp({ open, onClose }) {
 
             <DialogActions>
                 <Button
-                    onClick={onClose}
+                    onClick={handleClose}
                     sx={{ color: 'white' }}
                 >
                     Cancel
